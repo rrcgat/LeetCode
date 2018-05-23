@@ -1,0 +1,23 @@
+ (defun add-two-numbers (l1 l2)
+  (let ((lst nil)
+        (q)
+        (remain 0))
+    (loop while (and l1 l2) do
+         (setf (values remain q)
+               (floor (+ (car l1) (car l2) remain) 10))
+         (push q lst)
+         (setf l1 (cdr l1))
+         (setf l2 (cdr l2)))
+    (loop while l1 do
+         (setf (values remain q)
+               (floor (+ (car l1) remain) 10))
+         (push q lst)
+         (setf l1 (cdr l1)))
+    (loop while l2 do
+         (setf (values remain q)
+               (floor (+ (car l2) remain) 10))
+         (push q lst)
+         (setf l2 (cdr l2)))
+    (if (> remain 0)
+        (reverse (push remain lst))
+        (reverse lst))))

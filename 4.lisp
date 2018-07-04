@@ -13,7 +13,7 @@
           (nth q lst)))))
 
 (defun find-median-sorted-arrays-1 (nums1 nums2)
-  (let* ((lst (append nil nums1 nums2))
+  (let* ((lst (sort (append nil nums1 nums2)) '<)
          (len (length lst)))
     (multiple-value-bind (q r) (floor len 2)
       (if (zerop r)

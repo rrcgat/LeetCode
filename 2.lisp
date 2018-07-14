@@ -1,4 +1,4 @@
- (defun add-two-numbers (l1 l2)
+(defun add-two-numbers (l1 l2)
   (let ((lst nil)
         (q)
         (remain 0))

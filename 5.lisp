@@ -9,9 +9,8 @@
   (let ((size (length s))
         (start 0)
         (max-length 1))
-    (if (or (= 0 size)
-            (string= s (reverse s)))
-        (return-from longest-palindrome s))
+    (if ((string= s (reverse s))
+         (return-from longest-palindrome s)))
     (loop for i from 1 below size do
          (if (null (if (>= (- i max-length 1) 0)
                        (increase-length 2)))

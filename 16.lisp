@@ -1,0 +1,28 @@
+(defun three-sum-closest (nums target)
+  (let ((size (length nums))
+        (nums (sort nums #'<))
+        (closest nil))
+    (loop for i to (- size 3) do
+         (let* ((a (1+ i))
+                (b (1- size))
+                (min (+ (nth i nums)
+                        (nth a nums)
+                        (nth (1+ a) nums)))
+                (max (+ (nth i nums)
+                        (nth (1- b) nums)
+                        (nth b nums))))
+           (cond
+             ((< max target) (push max closest))
+             ((> min target) (push min closest))
+             (t (loop while (< a b) do
+                     (let ((sum (+ (nth i nums)
+                                   (nth a nums)
+                                   (nth b nums))))
+                       (push sum closest)
+                       (cond
+                         ((< sum target) (incf a))
+                         ((> sum target) (decf b))
+                         (t (return-from three-sum-closest target)))))))))
+    (first (sort closest #'(lambda (x y)
+                             (< (abs (- x target))
+                                (abs (- y target))))))))

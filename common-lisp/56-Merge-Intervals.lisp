@@ -1,0 +1,13 @@
+(defun merge-i (intervals)
+  (let* ((intervals (sort intervals #'(lambda (a b) (< (first a)
+                                                       (first b)))))
+         (res `(,(car intervals)))
+         (intervals (cdr intervals)))
+    (loop for interval in intervals
+       do (if (>= (second (car (last res)))
+                  (first interval))
+              (setf (second (car (last res))) 
+                    (max (second (first intervals))
+                         (second (car (last res)))))
+              (push interval (cdr (last res))))
+       finally (return res))))

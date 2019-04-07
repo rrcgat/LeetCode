@@ -1,0 +1,11 @@
+(defun can-jump (nums)
+  (if (null nums) (return-from can-jump nil))
+  (let* ((n (length nums))
+         (table (loop repeat n collect nil)))
+    (setf (nth (1- n) table) t)
+    (loop for i from (- n 2) downto 0
+       do (loop for j from 1 to (nth i nums)
+             when (and (< (+ i j) n)
+                       (nth (+ i j) table))
+             do (return (setf (nth i table) t))))
+    (first table)))

@@ -1,0 +1,17 @@
+(defun min-path-sum (grid)
+  (let* ((dp (loop repeat (length (first grid)) collect 0))
+         (m (length dp)))
+    (loop for row in grid
+       for row-idx below (length grid)
+       do (loop for i below m
+             do (if (zerop i)
+                    (incf (nth i dp) (nth i row))
+                    (if (zerop row-idx)
+                        (setf (nth i dp) 
+                              (+ (nth (1- i) dp)
+                                 (nth i row)))
+                        (setf (nth i dp)
+                              (+ (nth i row)
+                                 (min (nth (1- i) dp)
+                                      (nth i dp)))))))
+       finally (return (nth (1- m) dp)))))

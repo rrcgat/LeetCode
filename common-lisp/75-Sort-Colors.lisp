@@ -1,0 +1,15 @@
+(defun sort-colors (nums)
+  (let ((lo 0)
+        (hi (1- (length nums)))
+        (i 0))
+    (loop while (<= i hi)
+       do (cond
+            ((zerop (nth i nums))
+             (rotatef (nth i nums) (nth lo nums))
+             (incf i)
+             (incf lo))
+            ((= (nth i nums) 2)
+             (rotatef (nth i nums) (nth hi nums))
+             (decf hi))
+            (t
+             (incf i))))))

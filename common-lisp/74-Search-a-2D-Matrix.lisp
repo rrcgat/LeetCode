@@ -1,0 +1,16 @@
+(defun search-matrix (matrix target)
+  (let* ((lo 0)
+         (row (length (first matrix)))
+         (hi (1- (* (length matrix) row)))
+         (mid)
+         (mid-value))
+    (loop while (<= lo hi)
+       do (setf mid (floor (+ lo hi) 2))
+         (setf mid-value (nth (mod mid row) (nth (floor mid row) matrix)))
+         (cond
+           ((= mid-value target)
+            (return t))
+           ((< mid-value target)
+            (setf lo (1+ mid)))
+           (t
+            (setf hi (1- mid)))))))

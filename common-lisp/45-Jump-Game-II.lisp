@@ -1,0 +1,13 @@
+(defun jump (nums)
+  (if (< (length nums) 2)
+      (return-from jump 0))
+  (let* ((n (length nums))
+         (step (loop repeat n collect n)))
+    (setf (nth (1- n) step) 0)
+    (loop for i from (- n 2) downto 0
+       do (loop for j from 1 to (nth i nums)
+             do (when (and (< (+ i j) n)
+                           (> (nth i step)
+                              (+ (nth (+ i j) step) 1)))
+                  (setf (nth i step) (+ (nth (+ i j) step) 1)))))
+    (first step)))

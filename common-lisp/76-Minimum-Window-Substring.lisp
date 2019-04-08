@@ -1,0 +1,22 @@
+(defun min-window (s tt)
+  (let ((table (make-hash-table))
+        (start 0)
+        (end 0)
+        (missing (length tt)))
+    (loop for c across tt
+       do (incf (gethash c table 0)))
+    (loop for c across s
+       for j from 1 to (1+ (length s))
+       with i = 0
+       do (if (plusp (gethash c table 0))
+              (decf missing))
+         (decf (gethash c table 0))
+         (loop while (zerop missing)
+            do (incf (gethash (elt s i) table))
+              (when (plusp (gethash (elt s i) table))
+                (incf missing)
+                (if (or (zerop end)
+                        (> (- end start) (- j i)))
+                    (setf start i end j)))
+              (incf i))
+       finally (return (list start end)))))
